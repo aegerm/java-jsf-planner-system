@@ -1,4 +1,4 @@
-# planner-System
+# Planner-System
 
 ## Sistema para planejamento de tarefas, desenvolvido para cadeira de desenvolvimento web com as seguintes tecnologias:
 - Java 8
