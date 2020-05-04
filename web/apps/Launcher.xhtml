@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Planner System</title>
+        <h:outputStylesheet library="resources" name="style.css"/>
+    </h:head>
+    <h:body>
+        <p:growl id="growl"/>
+        <p:layout fullPage="true">
+            <p:layoutUnit header="System Planner Manager" position="north" resizable="false" closable="false" collapsed="false">
+            </p:layoutUnit>
+            <p:layoutUnit header="Gerenciador de Módulos" position="west" size="300" resizable="false" closable="false" collapsible="true">
+                <h:form>
+                    <p:panelMenu>
+                        <p:submenu label="Hub do Planner">
+                            <p:menuitem icon="ui-icon-document" value="Novo Plano" outcome="/apps/HubPlanner.xhtml" rendered="#{loginManagedBean.administrator}"/>
+                            <p:menuitem icon="ui-icon-document" value="Criar Tarefas" outcome="/apps/TaskManager.xhtml"/>
+                        </p:submenu>
+                        <p:submenu label="Monitoramento">
+                            <p:menuitem icon="ui-icon-clock" value="Planos" outcome="/apps/MonitorPlanner.xhtml"/>
+                            <p:menuitem icon="ui-icon-clock" value="Tarefas" outcome="/apps/MonitorTask.xhtml"/>
+                            <p:menuitem icon="ui-icon-clock" value="Monitoramento Administrativo" outcome="/apps/MonitorTaskSuper.xhtml" rendered="#{loginManagedBean.administrator}"/>
+                        </p:submenu>
+                        <p:submenu label="Relatórios" rendered="#{loginManagedBean.administrator}">
+                            <p:menuitem icon="ui-icon-print" value="Relatório de Planos" outcome="/apps/PlannerReport.xhtml"/>
+                            <p:menuitem icon="ui-icon-print" value="Relatório de Tarefas" outcome="/apps/TaskReport.xhtml" />
+                            <p:menuitem icon="ui-icon-print" value="Relatório de Usuários" outcome="/apps/UserReport.xhtml" />
+                            <p:menuitem icon="ui-icon-print" value="Relatório de Organizações" outcome="/apps/ReportOrganization.xhtml"/>
+                        </p:submenu>
+                        <p:submenu label="Configurações">
+                            <p:menuitem icon="ui-icon-suitcase" value="Organizações" outcome="/apps/OrganizationManager.xhtml" rendered="#{loginManagedBean.administrator}"/>
+                            <p:menuitem icon="ui-icon-person" value="Usuários" outcome="/apps/UserManager.xhtml" rendered="#{loginManagedBean.administrator}"/>
+                            <p:menuitem icon="ui-icon-power" value="Sair" actionListener="#{loginManagedBean.logout()}" update=":growl"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" resizable="false" closable="false" collapsed="false">
+                <ui:insert name="content"/>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

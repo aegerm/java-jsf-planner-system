@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="content">
+            <f:event listener="#{plannerManagedBean.listPlanners()}" type="preRenderView"/>
+                <h:form>
+                    <h:panelGrid columns="1" style="margin-bottom: 5px;">
+                        <h:outputLabel value="Controle de Planos" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                    </h:panelGrid>
+                    <div style="margin-top: 5px; margin-bottom: 20px">
+                        <p:inputText id="name" size="40" value="#{plannerManagedBean.plannerFilter}" placeholder="Nome do plano" style="width: 85%"/>
+                        <p:spacer width="10px"/>
+                        <p:commandButton icon="ui-icon-search" value="Pesquisar" action="#{plannerManagedBean.listPlanners()}" update="@form"/>
+                    </div>
+                    <p:dataTable emptyMessage="Nenhum plano encontrado." value="#{plannerManagedBean.planners}" var="planner" rows="5" paginator="true" paginatorPosition="bottom">
+                        <p:column headerText="Código" width="50">
+                            <h:outputText value="#{planner.id}"/>
+                        </p:column>
+                        <p:column headerText="Nome do Plano">
+                            <h:outputText value="#{planner.name}" />
+                        </p:column>
+                        <p:column headerText="Data Registro" width="100">
+                            <h:outputText value="#{planner.dateRegister}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Organização" width="100">
+                            <h:outputText value="#{planner.organization.name}" />
+                        </p:column>
+                        <p:column headerText="Usuário" width="100">
+                            <h:outputText value="#{planner.user.name}" />
+                        </p:column>
+                        <p:column headerText="Progresso" width="100">
+                            <h:outputText value="#{planner.getState( planner.progress )}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                           <p:button value="Editar" outcome="/apps/PlannerEditor.xhtml" icon="ui-icon-pencil">
+                                <f:param name="codeP" value="#{planner.id}"/>
+                            </p:button>
+                            <p:button value="Excluir" outcome="/apps/DeletePlanner.xhtml" icon="ui-icon-trash">
+                                <f:param name="codeP" value="#{planner.id}"/>
+                            </p:button>
+                        </p:column>
+                    </p:dataTable>
+                    <h:panelGrid columns="1" style="margin-top: 5px;">
+                        <p:button value="Adicionar" outcome="/apps/PlannerEditor.xhtml" icon="ui-icon-plusthick">
+                            <f:param name="codeP" value="#{0}"/>
+                        </p:button>
+                    </h:panelGrid>
+                </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

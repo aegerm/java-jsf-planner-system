@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportOrganization" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d15d813-7404-4613-ac41-f84317cb19fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select case uf
+when 1 then 'Acre'
+when 2 then 'Alagoas'
+when 3 then 'Amapá'
+when 4 then 'Amazonas'
+when 5 then 'Bahia'
+when 6 then 'Ceará'
+when 7 then 'Distrito Federal'
+when 8 then 'Espírito Santo'
+when 9 then 'Goiás'
+when 10 then 'Maranhão'
+when 12 then 'Mato Grosso'
+when 11 then 'Mato Grosso do Sul'
+when 13 then 'Minas Gerais'
+when 14 then 'Pará'
+when 15 then 'Paraíba'
+when 16 then 'Paraná'
+when 17 then 'Pernambuco'
+when 18 then 'Piauí'
+when 19 then 'Rio de Janeiro'
+when 20 then 'Rio Grande do Norte'
+when 21 then 'Rio Grande do Sul'
+when 22 then 'Rondônia'
+when 23 then 'Roraima'
+when 24 then 'Santa Catarina'
+when 25 then 'São Paulo'
+when 26 then 'Sergipe'
+when 27 then 'Tocantins'
+end as ufs, id_organization, name, description, date_register, address, city
+from organizations where state <> 'I']]>
+	</queryString>
+	<field name="ufs" class="java.lang.String"/>
+	<field name="id_organization" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date_register" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="city" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="89c4ab7b-3b6c-4246-94da-241430fb125c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Organizações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="71" height="20" uuid="740c3397-2a50-42ef-9d7a-5823a3a8c9a6"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Gerado em:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="71" y="30" width="484" height="20" uuid="7513da4c-b94b-4c99-93a5-59a96f32ad4c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="184" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#0079D7" backcolor="#E6E6E6" uuid="05847fb1-8f37-4cbb-b8d3-2db03116753b"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Descrição Organização:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" forecolor="#0079D7" uuid="b30c2f4d-72b8-406a-adde-f1aae28553a3"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="20" width="455" height="20" uuid="e41ad83c-6efd-4896-9b73-4a92efb8de66"/>
+				<textFieldExpression><![CDATA[$F{id_organization}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" forecolor="#0079D7" uuid="08cb8626-c7e8-45e5-bc2f-97264c158efd"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="455" height="20" uuid="9ad0cd23-792f-4b37-b0a7-a8b18549df67"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" forecolor="#0079D7" uuid="d074f4d5-c677-4ee1-8863-1787cc201c3d"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Descrição:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="60" width="455" height="20" uuid="9a0f2c76-135d-4751-bdee-5e57f709da52"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" forecolor="#0079D7" uuid="132409ee-4a4b-44eb-aef1-363856ecd3a8"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="80" width="455" height="20" uuid="fb89267d-c8ce-48b7-a15e-1ae990d336b1"/>
+				<textFieldExpression><![CDATA[$F{date_register}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="100" height="20" forecolor="#0079D7" uuid="c5aaa861-711b-41ef-8451-54df71d5344e"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="120" width="455" height="20" uuid="5c49650b-ccc4-4162-9ac2-83d11b76c4fb"/>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="140" width="100" height="20" forecolor="#0079D7" uuid="8a137e9d-d6a3-4a4f-a801-c39f08c3a67a"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="140" width="455" height="20" uuid="5326799d-1884-49b9-a641-0005f36ae634"/>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="160" width="100" height="20" forecolor="#0079D7" uuid="543be17d-5aea-4d62-b55c-0705843b6ba4"/>
+				<textElement>
+					<font fontName="Arial" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="160" width="455" height="20" uuid="15821f9d-c4f0-4940-9007-de553bfda8e4"/>
+				<textFieldExpression><![CDATA[$F{ufs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="58bd5298-5da4-4d38-8f3e-e1134cc4fbea"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="fd939bfd-6b6a-40db-8222-5a7c2299e2b5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="content">
+            <f:event listener="#{taskManagedBean.listTasks()}" type="preRenderView"/>
+            <h:form>
+                <h:panelGrid columns="1" style="margin-bottom: 5px;">
+                    <h:outputLabel value="Monitor de Tarefas" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                </h:panelGrid>
+                <div style="margin-top: 5px; margin-bottom: 20px">
+                    <p:inputText id="name" size="40" value="#{taskManagedBean.taskFilter}" placeholder="Nome da tarefa" style="width: 85%"/>
+                    <p:spacer width="10px"/>
+                    <p:commandButton icon="ui-icon-search" value="Pesquisar" action="#{taskManagedBean.searchTask()}" update="@form"/>
+                </div>
+                <p:dataTable emptyMessage="Nenhuma tarefa encontrada." value="#{taskManagedBean.tasks}" var="task" rows="5" paginator="true" paginatorPosition="bottom" widgetVar="tks">
+                    <p:column headerText="Código" width="50">
+                        <h:outputText value="#{task.id}" />
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{task.name}"/>
+                    </p:column>
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{task.description}"/>
+                    </p:column>
+                    <p:column headerText="Data Início" width="100">
+                        <h:outputText value="#{task.dateStart}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Data Fim" width="100">
+                        <h:outputText value="#{task.dateFinished}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Plano" width="100">
+                        <h:outputText value="#{task.planner.name}" />
+                    </p:column>
+                    <p:column headerText="Progresso" filterMatchMode="contains" filterBy="#{task.progress}" width="200">
+                        <f:facet name="filter">
+                            <p:selectOneButton onchange="PF('tks').filter()">
+                                <f:selectItem itemLabel="N" itemValue="1" />
+                                <f:selectItem itemLabel="A" itemValue="2" />
+                                <f:selectItem itemLabel="C" itemValue="3" />
+                                <f:selectItem itemLabel="T" itemValue="" />
+                            </p:selectOneButton>
+                        </f:facet>
+                        <h:outputText value="#{task.getState( task.progress )}" />
+                    </p:column>
+                    <p:column headerText="Ações">
+                        <p:button value="Inspecionar" outcome="/apps/InspectorTask.xhtml" icon="ui-icon-extlink">
+                            <f:param name="codeT" value="#{task.id}"/>
+                        </p:button>
+                    </p:column>
+                </p:dataTable>
+                <h:panelGrid columns="1" style="margin-top: 5px; font-size: 12px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;">
+                    <h:outputText value="N = Não Iniciada"/>
+                    <h:outputText value="A = Em Andamento"/>
+                    <h:outputText value="C = Concluída"/>
+                    <h:outputText value="T = Todos"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

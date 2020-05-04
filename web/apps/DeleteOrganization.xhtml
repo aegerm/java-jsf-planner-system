@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{organizationManagedBean.loadOrganization()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define>
+        <ui:define name="content">
+            <div class="login-mold">
+            <h:form class="form-login">
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="Continuar Exclusão de Dados ?" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                    <h:inputHidden value="#{organizationManagedBean.organization.id}"/>
+                    <f:facet name="footer">
+                        <p:commandButton class="form-button-login" value="Confirmar" actionListener="#{organizationManagedBean.deleteOrganization()}" update=":growl" icon="ui-icon-check"/>
+                        <p:button class="form-button-new" value="Cancelar" outcome="/apps/OrganizationManager.xhtml" icon="ui-icon-close"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

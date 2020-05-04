@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="content">
+            <div class="login-mold">
+                <h:form class="form-login"> 
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="Relatório de Tarefas" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                        <p:commandButton class="form-button-report" value="Relatório Geral" icon="ui-icon-print" actionListener="#{taskManagedBean.printReport()}" ajax="false"/>
+                        <p:commandButton class="form-button-report" value="Relatório Perido" type="button" icon="ui-icon-print" onclick="PF('dlg1').show();" />
+                        <p:commandButton class="form-button-report" value="Relatório Período e Progresso" type="button" icon="ui-icon-print" onclick="PF('dlg2').show();" />
+                        <p:commandButton class="form-button-report" value="Relatório Progresso e Plano" type="button" icon="ui-icon-print" onclick="PF('dlg3').show();" />
+                        <p:commandButton class="form-button-report" value="Exportação Excel" icon="ui-icon-print" onclick="PF('dlg5').show();"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+            <p:dialog header="Definir Período" widgetVar="dlg1" minHeight="40" modal="true" resizable="false" draggable="false" appendTo="@(body)">
+                <div class="login-mold">
+                    <h:form class="form-login"> 
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="Data Inicial"/>
+                            <p:calendar id="ds" value="#{taskManagedBean.dateStart}" showOn="button" required="true" requiredMessage="Data Inicial Obrigatória!"/>
+                            <h:outputLabel value="Data Final"/>
+                            <p:calendar id="df" value="#{taskManagedBean.dateEnd}" showOn="button" required="true" requiredMessage="Data Final Obrigatória!"/>
+                            <p:commandButton class="form-button-report" value="Imprimir" icon="ui-icon-print" actionListener="#{taskManagedBean.printReportParameter()}" ajax="false"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </p:dialog>
+            <p:dialog header="Definir Período e Progresso" widgetVar="dlg2" minHeight="40" modal="true" resizable="false" draggable="false" appendTo="@(body)">
+                <div class="login-mold">
+                    <h:form class="form-login"> 
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="Data Inicial"/>
+                            <p:calendar id="ds" value="#{taskManagedBean.dateStart}" showOn="button" required="true" requiredMessage="Data Inicial Obrigatória!"/>
+                            <h:outputLabel value="Data Final"/>
+                            <p:calendar id="df" value="#{taskManagedBean.dateEnd}" showOn="button" required="true" requiredMessage="Data Final Obrigatória!"/>
+                            <h:outputLabel value="Progresso Tarefa"/>
+                            <p:selectOneMenu id="txt3" required="true" value="#{taskManagedBean.state}" requiredMessage="Selecione um Progresso!">
+                                <f:selectItem itemLabel="Selecione Progresso*" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Não Iniciada" itemValue="1"/>
+                                <f:selectItem itemLabel="Em Andamento" itemValue="2"/>
+                                <f:selectItem itemLabel="Concluída" itemValue="3"/>
+                            </p:selectOneMenu>
+                            <p:commandButton class="form-button-report" value="Imprimir" icon="ui-icon-print" actionListener="#{taskManagedBean.printReportParameterDateProgress()}" ajax="false"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </p:dialog>
+            <p:dialog header="Definir Progresso e Plano" widgetVar="dlg3" minHeight="40" modal="true" resizable="false" draggable="false" appendTo="@(body)">
+                <div class="login-mold">
+                    <h:form class="form-login"> 
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="Progresso"/>
+                            <p:selectOneMenu id="txt3" required="true" value="#{taskManagedBean.state}" requiredMessage="Selecione um Progresso!">
+                                <f:selectItem itemLabel="Selecione Progresso*" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Não Iniciada" itemValue="1" />
+                                <f:selectItem itemLabel="Em Andamento" itemValue="2" />
+                                <f:selectItem itemLabel="Concluída" itemValue="3" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Projeto"/>
+                            <h:panelGroup>
+                                    <p:inputText id="planr" value="#{taskManagedBean.task.planner.name}" readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" required="true" requiredMessage="Selecione um Plano!" placeholder="Plano"/>
+                                    <p:commandButton icon="ui-icon-search" title="Plano"
+                                                     process="@this" update="@none" action="#{taskManagedBean.openDialog()}">
+                                            <p:ajax event="dialogReturn"
+                                                    process="@this" update="planr" listener="#{taskManagedBean.plannerSelected}"/>
+                                            <p:resetInput target="planr" />
+                                    </p:commandButton>
+				</h:panelGroup>
+                            <p:commandButton class="form-button-report" value="Imprimir" icon="ui-icon-print" actionListener="#{taskManagedBean.printReportParameterProgressPlan()}" ajax="false"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </p:dialog>
+            <p:dialog header="Selecione um Progresso" widgetVar="dlg5" minHeight="40" modal="true" resizable="false" draggable="false" appendTo="@(body)">
+                <div class="login-mold">
+                    <h:form class="form-login">
+                        <h:panelGrid columns="1">
+                            <p:selectOneMenu id="txt3" required="true" value="#{taskManagedBean.state}" requiredMessage="Selecione um Progresso!">
+                                <f:selectItem itemLabel="Selecione Progresso*" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Não Iniciada" itemValue="1" />
+                                <f:selectItem itemLabel="Em Andamento" itemValue="2" />
+                                <f:selectItem itemLabel="Concluída" itemValue="3" />
+                            </p:selectOneMenu>
+                            <p:commandButton class="form-button-report" value="Imprimir" icon="ui-icon-print" actionListener="#{taskManagedBean.exportExcel()}" ajax="false"/>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

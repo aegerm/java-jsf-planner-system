@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{organizationManagedBean.loadOrganization()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define>
+        <ui:define name="content">
+            <div class="login-mold">
+                <h:form class="form-login"> 
+                    <h:panelGrid columns="1" style="margin-top: -25px;">
+                        <h:outputLabel value="Editor de Organizações" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                        <h:inputHidden value="#{organizationManagedBean.organization.id}"/>
+                        <p:inputText id="organization" class="input-login" required="true" label="Nome" value="#{organizationManagedBean.organization.name}" requiredMessage="Campo Nome Obrigatório!" placeholder="Nome Organização*"/>
+                        <p:inputTextarea rows="10" cols="50" id="description"  class="input-login" required="true" label="Descrição" value="#{organizationManagedBean.organization.description}" requiredMessage="Campo Descrição Obrigatório!" placeholder="Descrição*"/>        
+                        <p:inputText id="address" class="input-login" required="true" label="Endereço" value="#{organizationManagedBean.organization.address}" requiredMessage="Campo Endereço Obrigatório!" placeholder="Endereço*"/>
+                        <p:inputText id="city" class="input-login" required="true" label="Cidade" value="#{organizationManagedBean.organization.city}" requiredMessage="Campo Cidade Obrigatório!" placeholder="Cidade*"/>
+                        <p:selectOneMenu required="true" value="#{organizationManagedBean.organization.uf}" requiredMessage="Selecione um Estado!" filter="true">
+                            <f:selectItem itemLabel="Selecione Estado*" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Acre" itemValue="1"/>
+                            <f:selectItem itemLabel="Alagoas" itemValue="2"/>
+                            <f:selectItem itemLabel="Amapá" itemValue="3"/>
+                            <f:selectItem itemLabel="Amazonas" itemValue="4"/>
+                            <f:selectItem itemLabel="Bahia" itemValue="5"/>
+                            <f:selectItem itemLabel="Ceará" itemValue="6"/>
+                            <f:selectItem itemLabel="Distrito Federal" itemValue="7"/>
+                            <f:selectItem itemLabel="Espírito Santo" itemValue="8"/>
+                            <f:selectItem itemLabel="Goiás" itemValue="9"/>
+                            <f:selectItem itemLabel="Maranhão" itemValue="10"/>
+                            <f:selectItem itemLabel="Mato Grosso" itemValue="11"/>
+                            <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="12"/>
+                            <f:selectItem itemLabel="Minas Gerais" itemValue="13"/>
+                            <f:selectItem itemLabel="Pará" itemValue="14"/>
+                            <f:selectItem itemLabel="Paraíba" itemValue="15"/>
+                            <f:selectItem itemLabel="Paraná" itemValue="16"/>
+                            <f:selectItem itemLabel="Pernambuco" itemValue="17"/>
+                            <f:selectItem itemLabel="Piauí" itemValue="18"/>
+                            <f:selectItem itemLabel="Rio de Janeiro" itemValue="19"/>
+                            <f:selectItem itemLabel="Rio Grande do Norte" itemValue="20"/>
+                            <f:selectItem itemLabel="Rio Grande do Sul" itemValue="21"/>
+                            <f:selectItem itemLabel="Rondônia" itemValue="22"/>
+                            <f:selectItem itemLabel="Roraima" itemValue="23"/>
+                            <f:selectItem itemLabel="Santa Catarina" itemValue="24"/>
+                            <f:selectItem itemLabel="São Paulo" itemValue="25"/>
+                            <f:selectItem itemLabel="Sergipe" itemValue="26"/>
+                            <f:selectItem itemLabel="Tocantins" itemValue="27"/>
+                        </p:selectOneMenu>
+                        <f:facet name="footer">
+                            <p:commandButton class="form-button-login" value="Salvar" actionListener="#{organizationManagedBean.controllerDataOrganization()}" update=":growl" icon="ui-icon-disk"/>
+                            <p:button class="form-button-new" value="Cancelar" outcome="/apps/OrganizationManager.xhtml" icon="ui-icon-close"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

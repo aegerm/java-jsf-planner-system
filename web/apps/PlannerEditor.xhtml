@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/apps/Launcher.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{plannerManagedBean.loadPlanners()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define>
+        <ui:define name="content">
+            <div class="login-mold">
+                <h:form class="form-login"> 
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="Editor de Planos" style="font-size: 21px; color: rgb( 0, 120, 215 ); font-family: Arial, Helvetica, sans-serif;"/>
+                        <h:inputHidden value="#{userManagedBean.user.id}"/>
+                        <p:inputText id="planner" class="input-login" required="true" label="Plano" value="#{plannerManagedBean.planner.name}" requiredMessage="Nome do Plano Obrigatório!" placeholder="Nome Plano*"/>
+                        <p:inputTextarea rows="10" cols="50" id="description"  class="input-login" required="true" label="Descrição" value="#{plannerManagedBean.planner.description}" requiredMessage="Descrição do Plano Obrigatória!" placeholder="Descrição*"/>        
+                        <h:panelGroup>
+                            <p:inputText id="usr" value="#{plannerManagedBean.planner.user.name}" readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" required="true" requiredMessage="Selecione um Usuário!" placeholder="Usuário*"/>
+                            <p:commandButton icon="ui-icon-search" title="Usuário"
+                                             process="@this" update="@none" action="#{plannerManagedBean.openDialogUser()}">
+                                    <p:ajax event="dialogReturn"
+                                            process="@this" update="usr" listener="#{plannerManagedBean.userSelected}"/>
+                                    <p:resetInput target="usr" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <p:inputText id="org" value="#{plannerManagedBean.planner.organization.name}" readonly="#{facesContext.currentPhaseId.name eq 'RENDER_RESPONSE'}" required="true" requiredMessage="Selecione uma Organização!" placeholder="Organização*"/>
+                            <p:commandButton icon="ui-icon-search" title="Organização"
+                                             process="@this" update="@none" action="#{plannerManagedBean.openDialogOrganization()}">
+                                    <p:ajax event="dialogReturn"
+                                            process="@this" update="org" listener="#{plannerManagedBean.organizationSelected}"/>
+                                    <p:resetInput target="org" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <f:facet name="footer">
+                            <p:commandButton class="form-button-login" value="Salvar" actionListener="#{plannerManagedBean.controllerDataPlanner()}" update=":growl" icon="ui-icon-disk"/>
+                            <p:button class="form-button-new" value="Cancelar" outcome="/apps/HubPlanner.xhtml" icon="ui-icon-close"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

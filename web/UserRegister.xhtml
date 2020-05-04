@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registrar Conta</title>
+        <h:outputStylesheet library="resources" name="style.css"/>
+    </h:head>
+    <h:body class="page-second">
+        <p:growl id="growl"/>
+        <div class="login-mold">
+            <h:form class="form-login"> 
+                <h:panelGrid columns="1">
+                    <h1 class="format-font">Registrar Novo Usuário</h1>
+                    <p:inputText id="username" class="input-login" required="true" label="Usuário" value="#{userManagedBean.user.name}" requiredMessage="Campo Nome do Usuário Obrigatório!" placeholder="Nome do Usuário*"/>
+                    <p:inputText id="login"  class="input-login" required="true" label="Login" value="#{userManagedBean.user.login}" requiredMessage="Campo Login Obrigatório!" placeholder="Login*"/>
+                    <p:password id="password"  class="input-login" required="true" label="Senha" value="#{userManagedBean.user.password}" placeholder="Senha*" feedback="true" requiredMessage="Campo Senha Obrigatório!"/>
+                    <p:selectOneMenu id="txt3" required="true" value="#{userManagedBean.user.profile}" requiredMessage="Selecione um Perfil!">
+                        <f:selectItem itemLabel="Selecione Perfil*" itemValue="" noSelectionOption="true" />
+                        <f:selectItem itemLabel="Administrador" itemValue="1" />
+                        <f:selectItem itemLabel="Operador" itemValue="2" />
+                    </p:selectOneMenu>
+                    <f:facet name="footer">
+                        <p:commandButton class="form-button-login" value="Registrar" actionListener="#{userManagedBean.saveUserLogin()}" update=":growl"/>
+                        <p:commandButton class="form-button-new" value="Sair" onclick="window.close()"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </h:body>
+</html>
