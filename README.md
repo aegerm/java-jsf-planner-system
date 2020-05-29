@@ -1,9 +1,25 @@
-# Planner-System
+### Planner-System
 
-## Sistema para planejamento de tarefas, desenvolvido para cadeira de desenvolvimento web com as seguintes tecnologias:
+### Iniciando
 - Java 8
-- Primefaces
 - JSF
+- Primefaces
 - MySQL
-- JavaScript
-- MVC
+- Netbeans 8.2
+
+### Desenvolvimento
+- Importar projeto Java Web
+- Criar banco de dados **planner_db**
+- Executar script SQL localizado no arquivo Database.sql em **planner/conf**
+- Executar projeto e cadastrar um login para acesso
+
+### Documentação
+- https://www.primefaces.org/
+- https://mvnrepository.com/
+- https://netbeans.apache.org/download/index.html
+- https://community.jaspersoft.com/project/ireport-designer
+- https://dev.mysql.com/downloads/
+
+### Observações
+- Sistema desenvolvido para cadeira de Programação de Aplicações para Internet - Engenharia da Computação
+- Sistema Web
